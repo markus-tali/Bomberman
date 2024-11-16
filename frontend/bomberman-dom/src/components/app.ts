@@ -2,9 +2,10 @@ import {ComponentBase, createEl} from "../../../framework"
 import {AppHomeComponent} from "./appHome.ts";
 import {RoutingService} from "../services/routingService.ts";
 import {AppHeaderComponent} from "./appHeader.ts";
+import { InsertName } from "./nameInsert.ts";
 
 /*
-Main app component, here you call for all thr services and for header and home components
+Main app component, here you call for all the services and for header and home components
  */
 
 export class AppComponent extends ComponentBase {
@@ -22,6 +23,7 @@ export class AppComponent extends ComponentBase {
             this.replaceContent([
                 [new AppHeaderComponent(this.routingService), []],
                 [new AppHomeComponent(this.routingService), []],
+                [new InsertName(), []]
             ])
         } else {
             this.replaceContent([
@@ -29,6 +31,7 @@ export class AppComponent extends ComponentBase {
                 [createEl("div", {className: "title"}, [`You have reached ${window.location.pathname}. Unfortunately there is nothing here.`]) ,[
                     [createEl("a", {onClick: () => history.back()}, ["Go Back"]),[]],
                 ]]
+                
             ])
         }
     }
