@@ -30,7 +30,6 @@ export class InsertName extends ComponentBase{
             [title, []],
             [form, []]
         ])
-        //testets
         
         
               //language=CSS
