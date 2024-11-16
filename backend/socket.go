@@ -90,6 +90,30 @@ func broadcastGameState() {
 	}
 }
 
+func handlePlayerAction(player *Player, action struct {
+	Action   string `json:"action"`
+	Message  string `json:"message,omitempty"`
+	Username string `json:"username,omitempty"`
+}) {
+	switch action.Action {
+	case "up", "down", "left", "right":
+		movePlayer(player, action.Action)
+	case "placeBomb":
+		// TODO: Implement
+	case "message":
+		broadcastMessage(player.ID, action.Message)
+	case "setUsername":
+		playersMutex.Lock()
+		defer playersMutex.Unlock()
+		delete(players, player.ID) // Kustuta vana ID
+
+		player.ID = action.Username
+		players[action.Username] = player
+
+		log.Printf("Player set their username to: %s", action.Username)
+	}
+}
+
 func WsHandler(w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -137,16 +161,19 @@ func WsHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Handle player actions
 		var action struct {
-			Action  string `json:"action"`
-			Message string `json:"message,omitempty"`
+			Action   string `json:"action"`
+			Message  string `json:"message,omitempty"`
+			Username string `json:"username,omitempty"`
 		}
+
 		if err := json.Unmarshal(msg, &action); err != nil {
 			log.Printf("Error while unmarshalling message: %v", err)
 			continue
 		}
 
-		handlePlayerAction(player, action.Action, action.Message)
+		handlePlayerAction(player, action)
 
 		broadcastGameState()
+
 	}
 }

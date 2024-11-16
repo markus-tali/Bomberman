@@ -152,14 +152,3 @@ func movePlayer(player *Player, direction string) {
 		}
 	}
 }
-
-func handlePlayerAction(player *Player, action, message string) {
-	switch action {
-	case "up", "down", "left", "right":
-		movePlayer(player, action)
-	case "placeBomb":
-		// TODO: Implement
-	case "message":
-		broadcastMessage(player.ID, message)
-	}
-}
