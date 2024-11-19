@@ -8,6 +8,7 @@ export default class BootMenu extends Component {
     super("div", { className: "bootMenu" });
   }
   // test
+  // hello
   async initialize(resolve, reject) {
     const maxCharacters = 10;
     const title = new Component("h1", { id: "title" }, [
