@@ -113,7 +113,7 @@ body {
 #end-button,
 #leave-button {
   position: fixed;
-  background-color: rgba(34, 139, 34, 0.3);
+  background-color: #6b8e23;;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -126,6 +126,8 @@ body {
 #end-button {
   top: 15px;
   right: 150px;
+  background-color: #2e8b57;
+
 }
 
 #leave-button {
@@ -183,6 +185,7 @@ body {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
+  background-color:#2f4f2f;
 }
 
 #end-menu .end:hover {
@@ -230,12 +233,13 @@ body {
 #game #lives-container ul li {
   width: 100px;
   padding: 10px;
-  background-color: rgba(197, 200, 212, 0.9);
+  background-color:#228B22;
   color: #fff;
   border-radius: 6px;
   margin-bottom: 5px;
   text-align: center;
   font-weight: 700;
+
 }
 
 #waitingRoom {
@@ -304,13 +308,13 @@ body {
 }
 
 #chat {
-  width: 30%;
-  height: 100%;
+  width: 50%;
+  height: 23%;
   background-color: rgba(0, 60, 30, 0.85);
   border: 3px solid  3px solid rgba(34, 139, 34, 0.5);
   border-top: none;
-  border-bottom-right-radius: 2rem;
-  border-bottom-left-radius: 2rem;
+  border-radius: 2rem;
+  margin-bottom: 2rem;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
