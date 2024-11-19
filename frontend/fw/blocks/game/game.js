@@ -174,7 +174,7 @@ export default class Game extends Component {
         this.lives[index] > 0 &&
         !this.leavers.includes(playerLi.props.className)
       ) {
-        const newContent = `${playerLi.props.className} : ${this.lives[index]}`;
+        const newContent = `${playerLi.props.className} :  ❤️${this.lives[index]}`;
         if (playerLi.children[0] !== newContent) {
           playerLi.children = [newContent];
           changesMade = true;
