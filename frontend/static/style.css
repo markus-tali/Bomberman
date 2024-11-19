@@ -38,30 +38,38 @@ body {
   justify-content: center;
   width: 40%;
   height: 50%;
-  background-color: rgba(220, 220, 220, 0.85);
+  background-color:  rgba(255, 255, 255, 0.8);
   border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  padding: 25px;
   transition: transform 0.3s ease-in-out;
+  overflow: hidden;
+  width: 100vw;  
+  height: 100vh;
+  background-image: url('../../frontend/fw/blocks/game/media/grass1.png');
+  background-position: center bottom;
+  background-color: #83c2e4;
+  background-repeat: repeat-x;
 }
 
 .bootMenu #title {
   font-size: 2.5rem;
-  color: #2c3e50;
-  margin-bottom: 15px;
+  color:#2f4f2f;
+  margin-bottom: 20px;
   text-align: center;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .bootMenu p {
   font-size: 1rem;
-  color: #333;
+  color: #4b9e4e;
   margin-bottom: 5px;
   font-weight: 500;
 }
 
 .bootMenu span {
   font-size: 0.9rem;
-  color: #555;
+  color: #8b8b8b;
   margin-bottom: 10px;
 }
 
@@ -69,14 +77,21 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #3b6e3a;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .bootMenu form #field {
-  width: 70%;
-  padding: 10px;
+  width: 80%;
+  padding: 12px;
   margin-bottom: 15px;
-  border: 1px solid #3e5151;
+  border: 1px solid #6b8e23;
+  background-color: #f4f4f4;
   border-radius: 5px;
+  font-size: 1rem;
+  color: #333;
 }
 
 .bootMenu form #submitBtn {
@@ -84,7 +99,7 @@ body {
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #3e5151;
+  background-color: #6b8e23;
   color: #fff;
   font-size: 1rem;
   cursor: pointer;
@@ -92,13 +107,13 @@ body {
 }
 
 .bootMenu form #submitBtn:hover {
-  background-color: #2c3e50;
+  background-color: #556b2f;
 }
 
 #end-button,
 #leave-button {
   position: fixed;
-  background-color: rgba(185, 185, 185, 0.9);
+  background-color: #6b8e23;;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -111,6 +126,8 @@ body {
 #end-button {
   top: 15px;
   right: 150px;
+  background-color: #2e8b57;
+
 }
 
 #leave-button {
@@ -120,7 +137,7 @@ body {
 
 #end-button:hover,
 #leave-button:hover {
-  background-color: rgba(63, 81, 181, 0.7);
+  background-color: rgba(43, 93, 55, 0.7);
 }
 
 #container {
@@ -130,6 +147,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #2e8b57;
 }
 
 #end-menu {
@@ -139,9 +157,9 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-color: #000000;
+  background-color:rgba(34, 45, 20, 0.85);
   border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow:  0 4px 12px rgba(0, 0, 0, 0.3);
   padding: 20px;
 }
 
@@ -167,6 +185,7 @@ body {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
+  background-color:#2f4f2f;
 }
 
 #end-menu .end:hover {
@@ -214,12 +233,13 @@ body {
 #game #lives-container ul li {
   width: 100px;
   padding: 10px;
-  background-color: rgba(197, 200, 212, 0.9);
+  background-color:#228B22;
   color: #fff;
   border-radius: 6px;
   margin-bottom: 5px;
   text-align: center;
   font-weight: 700;
+
 }
 
 #waitingRoom {
@@ -250,6 +270,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color:rgba(34, 139, 34, 0.3);
   font-weight: 700;
 }
 
@@ -274,6 +295,7 @@ body {
 
 .player {
   background-color: rgba(220, 220, 220, 0.8);
+  background-color: #449f73;
 }
 
 #room-container {
@@ -286,13 +308,13 @@ body {
 }
 
 #chat {
-  width: 30%;
-  height: 100%;
-  background-color: rgb(75, 75, 75);
-  border: 3px solid rgb(153, 153, 153);
+  width: 50%;
+  height: 23%;
+  background-color: rgba(0, 60, 30, 0.85);
+  border: 3px solid  3px solid rgba(34, 139, 34, 0.5);
   border-top: none;
-  border-bottom-right-radius: 2rem;
-  border-bottom-left-radius: 2rem;
+  border-radius: 2rem;
+  margin-bottom: 2rem;
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
@@ -311,18 +333,18 @@ body {
 }
 
 #chat #chat-box .chat-element-join {
-  background-color: rgba(207, 207, 207, 0.3);
-  color: #1c311d;
+  background-color:rgba(34, 139, 34, 0.3);
+  color:white;
   padding: 3px;
   border-radius: 3px;
   text-align: center;
   margin-bottom: 3px;
-  border: 1px solid black;
+  border:  1px solid #228B22;
 }
 
 #chat #chat-box .chat-element-leave {
-  background-color: rgba(244, 67, 54, 0.3);
-  color: #f44336;
+  background-color:  rgba(85, 107, 47, 0.3);
+  color:#8B4513;
   padding: 3px;
   border-radius: 3px;
   text-align: center;
@@ -331,14 +353,14 @@ body {
 
 #chat #chat-box .chat-element {
   padding: 5px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color:rgba(0, 128, 0, 0.7);
   color: #fff;
   border-radius: 8px;
   margin-bottom: 3px;
 }
 
 #chat #chat-box .chat-element .chat-sender {
-  color: #ffda79;
+  color: rgba(61, 202, 61, 0.871);
   font-weight: 600;
 }
 
@@ -350,13 +372,14 @@ body {
 #chat form #chat-input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #000000;
+  border:  1px solid #2e8b57;
   border-radius: 5px;
-  background-color: #fff;
+  background-color:  #5a9478;
 }
 
 #chat form #chat-input:focus {
   outline: none;
+  border-color: #66cdaa; 
 }
 
 #map {
