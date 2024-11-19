@@ -13,7 +13,7 @@ type Connected struct {
 	Connected []string `json:"connected"`
 }
 
-type TimerMsg struct {
+type TimerMessage struct {
 	Type string `json:"type"`
 	Body int    `json:"body"`
 }

@@ -53,14 +53,14 @@ func RandomizeMap() [][]int {
 }
 
 func GenerateMap() []byte {
-	mapMsg := struct {
+	mapMessage := struct {
 		Type string      `json:"type"`
 		Body interface{} `json:"body"`
 	}{}
 
-	mapMsg.Type = "map"
-	mapMsg.Body = RandomizeMap()
+	mapMessage.Type = "map"
+	mapMessage.Body = RandomizeMap()
 
-	jsonMapToSend, _ := json.Marshal(mapMsg)
+	jsonMapToSend, _ := json.Marshal(mapMessage)
 	return jsonMapToSend
 }

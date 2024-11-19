@@ -56,26 +56,26 @@ func (t *Timer) RunCountDown() {
 	}
 }
 
-func (h *Hub) CheckCountDown() {
-	if h.timer.started {
-		switch len(h.Clients) {
+func (hub *Hub) CheckCountDown() {
+	if hub.timer.started {
+		switch len(hub.Clients) {
 		case 0, 1:
-			h.timer.resetCountdown <- 15
-			h.timer.started = false
-			h.timer.startCountdown <- false
+			hub.timer.resetCountdown <- 15
+			hub.timer.started = false
+			hub.timer.startCountdown <- false
 		case 2, 3:
-			h.timer.resetCountdown <- 15
+			hub.timer.resetCountdown <- 15
 		case 4:
-			h.timer.resetCountdown <- 10
+			hub.timer.resetCountdown <- 10
 		}
-	} else if len(h.Clients) >= 2 {
-		h.timer.started = true
-		h.timer.startCountdown <- true
+	} else if len(hub.Clients) >= 2 {
+		hub.timer.started = true
+		hub.timer.startCountdown <- true
 	}
 }
 
-func (h *Hub) UpdateTimer(t int) {
-	goTimer := &TimerMsg{
+func (hub *Hub) UpdateTimer(t int) {
+	goTimer := &TimerMessage{
 		Type: "update-timer",
 		Body: t,
 	}
@@ -84,7 +84,7 @@ func (h *Hub) UpdateTimer(t int) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	for _, client := range h.Clients {
+	for _, client := range hub.Clients {
 		client.send <- toSend
 	}
 }

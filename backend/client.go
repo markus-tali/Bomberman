@@ -11,34 +11,34 @@ type Client struct {
 	Username string
 }
 
-func (c *Client) Read() {
+func (client *Client) Read() {
 	defer func() {
-		c.hub.unregister <- c
-		c.conn.Close()
+		client.hub.unregister <- client
+		client.conn.Close()
 	}()
 	for {
-		_, message, err := c.conn.ReadMessage()
+		_, message, err := client.conn.ReadMessage()
 		if err != nil {
-			c.hub.unregister <- c
-			c.conn.Close()
+			client.hub.unregister <- client
+			client.conn.Close()
 			break
 		}
-		c.hub.broadcast <- message
+		client.hub.broadcast <- message
 	}
 }
 
-func (c *Client) Write() {
+func (client *Client) Write() {
 	defer func() {
-		c.conn.Close()
+		client.conn.Close()
 	}()
-	for message := range c.send {
-		w, err := c.conn.NextWriter(websocket.TextMessage)
+	for message := range client.send {
+		w, err := client.conn.NextWriter(websocket.TextMessage)
 		if err != nil {
 			return
 		}
 		w.Write(message)
-		for len(c.send) > 0 {
-			w.Write(<-c.send)
+		for len(client.send) > 0 {
+			w.Write(<-client.send)
 		}
 		if err := w.Close(); err != nil {
 			return

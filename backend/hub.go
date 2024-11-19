@@ -51,51 +51,18 @@ func (h *Hub) Run() {
 		case message := <-h.broadcast:
 			var msg *Message
 			json.Unmarshal(message, &msg)
-			switch msg.Type {
-			case "chat":
-				for _, client := range h.Clients {
-					client.send <- message
-				}
 
+			switch msg.Type {
 			case "map":
 				playerReady++
-				if playerReady != len(h.Clients) {
-				} else {
+				if playerReady == len(h.Clients) {
 					jsonMap := GenerateMap()
 					for _, client := range h.Clients {
 						client.send <- jsonMap
 					}
 					playerReady = 0
 				}
-			case "move":
-				for _, client := range h.Clients {
-					client.send <- message
-				}
-			case "end":
-				for _, client := range h.Clients {
-					client.send <- message
-				}
-			case "death":
-				for _, client := range h.Clients {
-					client.send <- message
-				}
-			case "degats":
-				for _, client := range h.Clients {
-					client.send <- message
-				}
-			case "bomb":
-				for _, client := range h.Clients {
-					client.send <- message
-				}
-			case "bonus":
-				for _, client := range h.Clients {
-					client.send <- message
-				}
-			case "lock":
-				for _, client := range h.Clients {
-					client.send <- message
-				}
-			case "unlock":
+			case "chat", "move", "end", "death", "degats", "bomb", "bonus", "lock", "unlock":
 				for _, client := range h.Clients {
 					client.send <- message
 				}
@@ -105,13 +72,13 @@ func (h *Hub) Run() {
 	}
 }
 
-func (h *Hub) RegisterClient(client *Client) {
-	h.Clients[client.Username] = client
+func (hub *Hub) RegisterClient(client *Client) {
+	hub.Clients[client.Username] = client
 
 	connectedList := make([]string, 0)
 
-	for _, c := range h.Clients {
-		connectedList = append(connectedList, c.Username)
+	for _, hubClient := range hub.Clients {
+		connectedList = append(connectedList, hubClient.Username)
 	}
 
 	message := &Connected{
@@ -126,18 +93,18 @@ func (h *Hub) RegisterClient(client *Client) {
 		fmt.Println(err)
 		return
 	}
-	for _, c := range h.Clients {
-		c.send <- joinedMessage
+	for _, hubClient := range hub.Clients {
+		hubClient.send <- joinedMessage
 	}
-	h.CheckCountDown()
+	hub.CheckCountDown()
 }
 
-func (h *Hub) UnregisterClient(client *Client) {
-	if _, ok := h.Clients[client.Username]; ok {
+func (hub *Hub) UnregisterClient(client *Client) {
+	if _, ok := hub.Clients[client.Username]; ok {
 		connectedList := make([]string, 0)
 
-		for _, c := range h.Clients {
-			connectedList = append(connectedList, c.Username)
+		for _, hubClient := range hub.Clients {
+			connectedList = append(connectedList, hubClient.Username)
 		}
 
 		message := &Connected{
@@ -153,15 +120,15 @@ func (h *Hub) UnregisterClient(client *Client) {
 			fmt.Println(err)
 			return
 		}
-		for _, c := range h.Clients {
-			if c.Username != client.Username {
-				c.send <- leftMessage
+		for _, hubClient := range hub.Clients {
+			if hubClient.Username != client.Username {
+				hubClient.send <- leftMessage
 			}
 		}
-		close(h.Clients[client.Username].send)
-		delete(h.Clients, client.Username)
+		close(hub.Clients[client.Username].send)
+		delete(hub.Clients, client.Username)
 
-		h.CheckCountDown()
+		hub.CheckCountDown()
 	}
 }
 
