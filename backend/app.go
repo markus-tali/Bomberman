@@ -11,6 +11,6 @@ func NewApp() *App {
 
 func (a *App) ServeHTTP(hub *Hub) {
 	http.HandleFunc("/api/join", func(w http.ResponseWriter, r *http.Request) {
-		HandlerJoin(w, r, hub)
+		JoinHandler(w, r, hub)
 	})
 }

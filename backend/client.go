@@ -1,8 +1,6 @@
 package main
 
 import (
-	"net/http"
-
 	"github.com/gorilla/websocket"
 )
 
@@ -11,14 +9,6 @@ type Client struct {
 	conn     *websocket.Conn
 	send     chan []byte
 	Username string
-}
-
-var upgrader = websocket.Upgrader{
-	CheckOrigin: func(r *http.Request) bool {
-		return true
-	},
-	ReadBufferSize:  1024,
-	WriteBufferSize: 1024,
 }
 
 func (c *Client) Read() {
@@ -54,25 +44,4 @@ func (c *Client) Write() {
 			return
 		}
 	}
-}
-
-func WebsocketHandler(hub *Hub, w http.ResponseWriter, r *http.Request) {
-	conn, err := upgrader.Upgrade(w, r, nil)
-
-	if err != nil {
-		return
-	}
-
-	username := r.URL.Query().Get("username")
-
-	client := &Client{
-		hub:      hub,
-		conn:     conn,
-		send:     make(chan []byte, 256),
-		Username: username,
-	}
-
-	client.hub.register <- client
-	go client.Write()
-	go client.Read()
 }
