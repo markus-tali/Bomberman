@@ -1,6 +1,8 @@
 import Component from "../component.js";
 import { checkGround, checkTrigger } from "./collisions.js";
 
+// player models from https://pixelfight.itch.io/birdcat
+
 const FRAME_COUNT = 3;
 const FRAME_WIDTH = 32;
 const MOVEMENT_SIZE = 2;
@@ -189,7 +191,7 @@ export class CurrentPlayer extends Player {
   }
 
   speedUp() {
-    this.speed += 0.2;
+    this.speed += 0.4;
   }
 
   activeEscape() {
