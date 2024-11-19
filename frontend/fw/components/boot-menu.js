@@ -57,6 +57,11 @@ export default class BootMenu extends Component {
         }
       });
     });
+    const container = new Component("div", { className: "boot-menu-container" });
+    container.addElement(bootForm);
+    
+    const grass1 = new Component("div", { className: "grass" });
+    this.addElement(grass1)
 
     this.addElement(bootForm);
     this.render();
