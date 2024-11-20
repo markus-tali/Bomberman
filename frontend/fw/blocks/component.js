@@ -1,5 +1,5 @@
-import { diff, patch, render } from '../runner/engine.js';
-export default class Component {
+import { nodeDifference, applyPatch, render } from '../runner/engine.js';
+export default class ComponentBase {
     constructor(tag, props = {}, children = [], parent = null) {
         this.tag = tag;
         this.props = props;
@@ -32,17 +32,17 @@ export default class Component {
         return '';
     }
 
-    updateDOM(callback = () => { }) {
+    updateDOMNodes(callback = () => { }) {
         this.oldNode = this.domNode
         callback()
-        const patches = diff(this.oldNode, this)
+        const patches = nodeDifference(this.oldNode, this)
         const rootNode = document.getElementById(this.props.id)
-        patch(rootNode, patches);
+        applyPatch(rootNode, patches);
         this.domNode = render(this);
     }
 
-    update() {
-        this.updateDOM()
+    updateContent() {
+        this.updateDOMNodes()
     }
 
     actionListener(eventType, func) {
@@ -59,16 +59,16 @@ export default class Component {
 
     delete(child) {
         this.children = this.children.filter(element => element.props.id !== child)
-        this.update();
+        this.updateContent();
     }
 
     clear() {
         this.children = [];
-        this.update();
+        this.updateContent();
     }
 
     clone() {
-        const clone = new Component(this.tag, this.props, this.children)
+        const clone = new ComponentBase(this.tag, this.props, this.children)
         clone.children = this.children.map((child) => child.clone())
         clone.parent = this.parent
         return clone

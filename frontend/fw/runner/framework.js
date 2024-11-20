@@ -1,23 +1,23 @@
-import Router from "../routinglogic/routing.js";
+import RouterBase from "../routinglogic/routing.js";
 
-import { vNode, render, diff, patch } from "./engine.js";
+import { virtualNode, render, nodeDifference, applyPatch } from "./engine.js";
 
 export default class Framework {
     constructor() {
 
-        this.routes = [];
+        this.validRoutes = [];
 
-        this.router = new Router(this);
+        this.router = new RouterBase(this);
 
-        this._components = [];
+        this._componentNodes = [];
 
-        this.oldNode = {};
-        this._init();
+        this.prevNode = {};
+        this._initialize();
     }
 
-    _init() {
-        this.oldNode = vNode("main", { id: "root" }, ...this._components);
-        const initNode = render(this.oldNode);
+    _initialize() {
+        this.prevNode = virtualNode("main", { id: "root" }, ...this._componentNodes);
+        const initNode = render(this.prevNode);
         document.body.appendChild(initNode);
     }
 
@@ -27,20 +27,20 @@ export default class Framework {
 
     bindLink(component, href) {
         const route = {};
-        this.routes.push((route[href] = component));
+        this.validRoutes.push((route[href] = component));
         component.actionListener("click", () => {
             this.router.navigateTo(href);
         });
     }
 
     async addComponent(component) {
-        this._components.push(component);
-        await this.render(component);
+        this._componentNodes.push(component);
+        await this.renderNode(component);
     }
 
     async clear() {
-        this._components.length = 0
-        await this.render()
+        this._componentNodes.length = 0
+        await this.renderNode()
     }
 
     async replaceComponent(component) {
@@ -48,11 +48,11 @@ export default class Framework {
         this.addComponent(component)
     }
 
-    async render() {
-        const newNode = vNode("main", { id: "root" }, ...this._components);
-        const patches = diff(this.oldNode, newNode);
-        await patch(document.body.lastChild, patches);
-        this.oldNode = newNode;
+    async renderNode() {
+        const newNode = virtualNode("main", { id: "root" }, ...this._componentNodes);
+        const patches = nodeDifference(this.prevNode, newNode);
+        await applyPatch(document.body.lastChild, patches);
+        this.prevNode = newNode;
     }
 }
 

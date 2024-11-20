@@ -1,18 +1,18 @@
-import Component from "./component.js";
+import ComponentBase from "./component.js";
 
-export default class WaitingRoom extends Component {
+export default class WaitingRoom extends ComponentBase {
     constructor(ws, currentPlayer) {
         super("section", { id: "waitingRoom" });
         this.ws = ws;
-        this.playerList = new Component("ul", { id: "playerList" });
-        this.playersCount = new Component("div", { id: "playersCount" });
+        this.playerList = new ComponentBase("ul", { id: "playerList" });
+        this.playersCount = new ComponentBase("div", { id: "playersCount" });
         this.started = false;
         this.countDownID;
         this.countDown = 0;
         this.resolve;
         this.reject;
         this.currentPlayer = currentPlayer;
-        this.counter = new Component("div", { className: "countDown" }, [""]);
+        this.counter = new ComponentBase("div", { className: "countDown" }, [""]);
     }
 
 
@@ -40,7 +40,7 @@ export default class WaitingRoom extends Component {
                                 this.counter.children = [""];
                             }
                         }
-                        this.update();
+                        this.updateContent();
                     }
                     break;
             }
@@ -63,19 +63,19 @@ export default class WaitingRoom extends Component {
             this.countDownID = null;
             this.counter.children = [""];
             this.started = false;
-            this.update();
+            this.updateContent();
         }
     }
 
     newPlayerJoin(...players) {
         this.playerList.children = [];
         players.flat().forEach((playerUsername) => {
-            const player = new Component("li", { className: "player" }, [
+            const player = new ComponentBase("li", { className: "player" }, [
                 playerUsername,
             ]);
             this.playerList.addElement(player);
-            this.playerList.update();
+            this.playerList.updateContent();
         });
-        this.playersCount.update();
+        this.playersCount.updateContent();
     }
 }

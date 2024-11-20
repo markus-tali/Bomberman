@@ -1,4 +1,4 @@
-import Component from "../component.js";
+import ComponentBase from "../component.js";
 import Bonus from "./bonus.js";
 import { getBorder } from "../movement-impact.js";
 
@@ -18,7 +18,7 @@ const TILE_TYPES = {
   BONUS_5: 9,
 };
 
-export default class Map extends Component {
+export default class Map extends ComponentBase {
   constructor(atlas) {
     super("div", { class: "map-container", id: "map" });
     this.atlas = atlas;
@@ -30,7 +30,7 @@ export default class Map extends Component {
   }
 
   initMap() {
-    const wall = new Component("div", {
+    const wall = new ComponentBase("div", {
       class: "wall",
       style: `background-image: ${
         this.tileSetImage
@@ -38,7 +38,7 @@ export default class Map extends Component {
         this.tileSize
       }px; height: ${this.tileSize}px`,
     });
-    const path = new Component("div", {
+    const path = new ComponentBase("div", {
       class: "path",
       style: `background-image: ${
         this.tileSetImage
@@ -46,7 +46,7 @@ export default class Map extends Component {
         this.tileSize
       }px; height: ${this.tileSize}px`,
     });
-    const shadow = new Component("div", {
+    const shadow = new ComponentBase("div", {
       class: "shadow",
       style: `background-image: ${
         this.tileSetImage
@@ -54,7 +54,7 @@ export default class Map extends Component {
         this.tileSize
       }px; height: ${this.tileSize}px`,
     });
-    const spawn = new Component("div", {
+    const spawn = new ComponentBase("div", {
       class: "spawn",
       style: `background-image: ${
         this.tileSetImage
@@ -65,7 +65,7 @@ export default class Map extends Component {
     this.path = path;
     this.shadow = shadow;
     for (let y = 0; y < this.atlas.length; y++) {
-      const lineMap = new Component("div", { class: "line" });
+      const lineMap = new ComponentBase("div", { class: "line" });
       for (let x = 0; x < this.atlas[y].length; x++) {
         let type = this.atlas[y][x];
         let block;
@@ -74,7 +74,7 @@ export default class Map extends Component {
             block = wall;
             break;
           case TILE_TYPES.BLOCK:
-            block = new Component("div", {
+            block = new ComponentBase("div", {
               class: "block",
               style: `background-color: #2f8136; background-image: ${
                 this.tileSetImage
@@ -136,6 +136,6 @@ export default class Map extends Component {
       (bonus) =>
         bonus.indexX !== bonusData.indexX || bonus.indexY !== bonusData.indexY
     );
-    this.update();
+    this.updateContent();
   }
 }

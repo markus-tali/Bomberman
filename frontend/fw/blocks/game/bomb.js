@@ -1,4 +1,4 @@
-import Component from "../component.js";
+import ComponentBase from "../component.js";
 import { initCrossBlast } from "../movement-impact.js";
 import { checkTrigger } from "./collisions.js";
 import TabSprite from "./sprite.js";
@@ -57,7 +57,7 @@ const ANIMATION_FRAME_BLAST = {
   },
 };
 
-export default class TabBomb extends Component {
+export default class TabBomb extends ComponentBase {
   constructor(parent, currentPlayer) {
     super("div", { id: "TabBomb" }, []);
     this.tabSpriteBomb = new TabSprite(
@@ -68,7 +68,7 @@ export default class TabBomb extends Component {
     ).tab;
     this.parent = parent;
     this.currentPlayer = currentPlayer;
-    this.boundUpdate = this.update.bind(this);
+    this.boundUpdate = this.updateContent.bind(this);
     this.bombPool = new BombPool();
   }
 
@@ -90,7 +90,7 @@ export default class TabBomb extends Component {
     );
 
     this.addElement(bomb);
-    this.update();
+    this.updateContent();
   }
 
   tick(deltaTime) {
@@ -123,7 +123,7 @@ export default class TabBomb extends Component {
 
       this.children.forEach((child) => {
         if (child.dirty) {
-          this.update();
+          this.updateContent();
           child.dirty = false;
         }
       });
@@ -136,7 +136,7 @@ export default class TabBomb extends Component {
   }
 }
 
-class Bomb extends Component {
+class Bomb extends ComponentBase {
   constructor(
     bombType,
     sender,
@@ -172,7 +172,7 @@ class Bomb extends Component {
       ANIMATION_FRAME_BOMB[this.bombType].bombTimer /
         ANIMATION_FRAME_BOMB[this.bombType].tab.length
     );
-    this.boundUpdate = this.update.bind(this);
+    this.boundUpdate = this.updateContent.bind(this);
     this.dirty = true;
     this.fuseTime = fuseTime;
   }
@@ -223,13 +223,13 @@ class Bomb extends Component {
       ANIMATION_FRAME_BOMB[this.bombType].bombTimer /
         ANIMATION_FRAME_BOMB[this.bombType].tab.length
     );
-    this.boundUpdate = this.update.bind(this);
+    this.boundUpdate = this.updateContent.bind(this);
     this.dirty = true;
     this.fuseTime = fuseTime;
   }
 }
 
-class Blast extends Component {
+class Blast extends ComponentBase {
   constructor(posX, posY, typeflame, blastRange, timer, parent) {
     super("div", { id: `${parent.props.id}blast` }, []);
     this.dateCreateBomb = Date.now();
@@ -243,7 +243,7 @@ class Blast extends Component {
     this.timer = parseInt(timer / 4);
     this.deltaTime = this.deltaTime;
     this.aLive = Date.now();
-    this.boundUpdate = this.update.bind(this);
+    this.boundUpdate = this.updateContent.bind(this);
     this.initBlast();
   }
 
@@ -320,7 +320,7 @@ class Blast extends Component {
   }
 }
 
-class Fire extends Component {
+class Fire extends ComponentBase {
   constructor(posX, posY, spriteAnimation, border, parent, key) {
     super("div", { class: "fire" }, []);
     this.posX = posX;

@@ -1,6 +1,6 @@
-import Component from "../component.js";
+import ComponentBase from "../component.js";
 
-export default class EndMenu extends Component {
+export default class EndMenu extends ComponentBase {
     constructor(leaveButton, restartButton, winner) {
         super("div", { id: "end-menu" });
         this.winner = winner;
@@ -10,9 +10,9 @@ export default class EndMenu extends Component {
     }
 
     initialize() {
-        const title = new Component("h2", { id: "end-title" }, [`Game over ${this.winner} wins!`]);
-        const winText = new Component("p", { id: "end-prompt" }, ["Want to go again?"]);
-        const buttons = new Component("div", { id: "button-container" }, [this.restartButton, this.leaveButton]);
+        const title = new ComponentBase("h2", { id: "end-title" }, [`Game over ${this.winner} wins!`]);
+        const winText = new ComponentBase("p", { id: "end-prompt" }, ["Want to go again?"]);
+        const buttons = new ComponentBase("div", { id: "button-container" }, [this.restartButton, this.leaveButton]);
         this.addElement(title, winText, buttons);
     }
 }

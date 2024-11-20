@@ -1,9 +1,9 @@
-import Component from "./component.js";
+import ComponentBase from "./component.js";
 import Input from "./input.js";
 import Form from "./form.js";
 import { getFormValues } from "../runner/engine.js";
 
-export default class Chat extends Component {
+export default class Chat extends ComponentBase {
     constructor(props, ws, username) {
         super("section", props);
         this.ws = ws;
@@ -27,28 +27,28 @@ export default class Chat extends Component {
     }
 
     #receive() {
-        const chatBox = new Component("div", { id: "chat-box" });
+        const chatBox = new ComponentBase("div", { id: "chat-box" });
         this.ws.onMessage((data) => {
             let chatElement;
             switch (data.type) {
                 case 'join':
-                    chatElement = new Component("p", { id: "chat-element", className: "chat-element-join" });
+                    chatElement = new ComponentBase("p", { id: "chat-element", className: "chat-element-join" });
                     chatElement.children.push(data.body);
                     break
                 case 'leave':
-                    chatElement = new Component("p", { id: "chat-element", className: "chat-element-leave" });
+                    chatElement = new ComponentBase("p", { id: "chat-element", className: "chat-element-leave" });
                     chatElement.children.push(data.body);
                     break
                 case 'chat':
-                    chatElement = new Component("p", { id: "chat-element", className: "chat-element" });
-                    const sender = new Component("span", { className: "chat-sender" }, [`<${data.sender}> : `])
+                    chatElement = new ComponentBase("p", { id: "chat-element", className: "chat-element" });
+                    const sender = new ComponentBase("span", { className: "chat-sender" }, [`<${data.sender}> : `])
                     chatElement.addElement(sender, data.body);
                     break
                 default:
                     return
             }
             chatBox.addElement(chatElement);
-            chatBox.update();
+            chatBox.updateContent();
         })
         this.addElement(chatBox);
     }

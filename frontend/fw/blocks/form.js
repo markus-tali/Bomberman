@@ -1,6 +1,6 @@
-import Component from "./component.js";
+import ComponentBase from "./component.js";
 
-export default class Form extends Component {
+export default class Form extends ComponentBase {
     constructor(props, ...inputs) {
         super("form", props);
         this.props.className = "form";

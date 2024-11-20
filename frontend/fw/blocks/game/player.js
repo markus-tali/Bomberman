@@ -1,4 +1,4 @@
-import Component from "../component.js";
+import ComponentBase from "../component.js";
 import { checkGround, checkTrigger } from "./collisions.js";
 
 // player models from https://pixelfight.itch.io/birdcat
@@ -47,7 +47,7 @@ const DROP_BOMB = {
 };
 
 // Player class
-export class Player extends Component {
+export class Player extends ComponentBase {
   constructor(props, ws, username) {
     super("div", props);
     this.ws = ws;

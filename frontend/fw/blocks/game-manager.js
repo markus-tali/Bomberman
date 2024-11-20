@@ -1,5 +1,5 @@
 import Framework from "../runner/framework.js"
-import Component from "./component.js"
+import ComponentBase from "./component.js"
 import BootMenu from "./startup.js"
 import WS from "../ws/ws-conn.js"
 import Game from "./game/game.js"
@@ -43,9 +43,9 @@ export default class GameManager {
     }
 
     launchgame() {
-        const leaveButton = new Component("button", { id: "leave-button" }, ["Leave Game"])
-        const endButton = new Component("button", { id: "end-button" }, ["End Game"])
-        const container = new Component("div", { id: "container" });
+        const leaveButton = new ComponentBase("button", { id: "leave-button" }, ["Leave Game"])
+        const endButton = new ComponentBase("button", { id: "end-button" }, ["End Game"])
+        const container = new ComponentBase("div", { id: "container" });
         const chat = new Chat({ id: "chat" }, this.ws, this.username);
         const waitRoom = new WaitingRoom(this.ws, this.username)
         leaveButton.actionListener('click', () => {
@@ -72,7 +72,7 @@ export default class GameManager {
         ready.then(() => {
             const game = new Game({ id: "game" }, this.ws, this.username, waitRoom.playerList.children);
             container.replaceChildren(waitRoom, game);
-            container.update()
+            container.updateContent()
         });
 
         container.addElement(chat, waitRoom);
@@ -84,14 +84,14 @@ export default class GameManager {
     }
 
     launchEnd() {
-        const leaveButton = new Component("button", { id: "leave-button", className: "end" }, ["Leave Game"])
+        const leaveButton = new ComponentBase("button", { id: "leave-button", className: "end" }, ["Leave Game"])
 
         leaveButton.actionListener('click', () => {
             container.clear();
             this.app.clear();
             this.launchMenu();
         })
-        const restart = new Component("button", { id: "restart-button", className: "end" }, ["Restart"])
+        const restart = new ComponentBase("button", { id: "restart-button", className: "end" }, ["Restart"])
         restart.actionListener('click', () => {
             container.clear();
             this.app.clear();
@@ -99,7 +99,7 @@ export default class GameManager {
             this.launchgame();
         })
 
-        const container = new Component("div", { id: "container" });
+        const container = new ComponentBase("div", { id: "container" });
 
         const endMenu = new EndMenu(leaveButton, restart, this.winner);
         container.addElement(endMenu)
@@ -108,6 +108,6 @@ export default class GameManager {
     }
 
     render() {
-        this.app.render(this);
+        this.app.renderNode(this);
     }
 }

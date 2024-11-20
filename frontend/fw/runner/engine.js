@@ -1,16 +1,16 @@
-import Component from "../blocks/component.js";
+import ComponentBase from "../blocks/component.js";
 
 // Create virtual node
-export const vNode = (tag, props, ...children) => (new Component(tag, props, children));
+export const virtualNode = (tag, props, ...children) => (new ComponentBase(tag, props, children));
 
 // Render virtual node
-export const render = (vNode) => {
-    if (typeof vNode === 'string') {
-        return document.createTextNode(vNode);
+export const render = (virtualNode) => {
+    if (typeof virtualNode === 'string') {
+        return document.createTextNode(virtualNode);
     }
-    const node = document.createElement(vNode.tag);
-    if (typeof vNode.props === 'object' && vNode.props !== null) {
-        for (const [prop, value] of Object.entries(vNode.props)) {
+    const node = document.createElement(virtualNode.tag);
+    if (typeof virtualNode.props === 'object' && virtualNode.props !== null) {
+        for (const [prop, value] of Object.entries(virtualNode.props)) {
             if (node[prop] !== undefined) {
                 node[prop] = value;
             } else {
@@ -18,13 +18,13 @@ export const render = (vNode) => {
             }
         }
     }
-    for (const child of vNode.children || []) {
+    for (const child of virtualNode.children || []) {
         node.appendChild(render(child));
     }
     return node;
 };
 // Compare new virtual node with old virtual node
-export const diff = (v1, v2) => {
+export const nodeDifference = (v1, v2) => {
     const patches = [];
 
     if (typeof v1 === 'string' || typeof v2 === 'string') {
@@ -44,7 +44,7 @@ export const diff = (v1, v2) => {
     return patches;
 };
 // Apply patches to the real DOM
-export const patch = async (node, patches) => {
+export const applyPatch = async (node, patches) => {
     for (const patch of patches) {
         switch (patch.tag) {
             case 'REMOVE':

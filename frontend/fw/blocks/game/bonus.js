@@ -1,8 +1,8 @@
-import Component from "../component.js";
+import ComponentBase from "../component.js";
 
 // icons from https://www.spriters-resource.com/fullview/170714/
 
-export default class Bonus extends Component {
+export default class Bonus extends ComponentBase {
   constructor(atlas, tileSize, tileSetImage, bonusType) {
     super("div", {
       class: "covered",
@@ -14,7 +14,7 @@ export default class Bonus extends Component {
     this.tileSize = tileSize;
     this.tileSetImage = tileSetImage;
     this.bonusType = bonusType;
-    this.cover = new Component("div", {
+    this.cover = new ComponentBase("div", {
       class: "block-cover",
       style: `background-image: ${
         this.tileSetImage
@@ -26,7 +26,7 @@ export default class Bonus extends Component {
     // Create the bonus image based on the bonus type
     switch (this.bonusType) {
       case 1:
-        this.bonusImage = new Component(
+        this.bonusImage = new ComponentBase(
           "div",
           {
             class: "bonus-item",
@@ -40,7 +40,7 @@ export default class Bonus extends Component {
         );
         break;
       case 2:
-        this.bonusImage = new Component(
+        this.bonusImage = new ComponentBase(
           "div",
           {
             class: "bonus-item",
@@ -54,7 +54,7 @@ export default class Bonus extends Component {
         );
         break;
       case 3:
-        this.bonusImage = new Component(
+        this.bonusImage = new ComponentBase(
           "div",
           {
             class: "bonus-item",
@@ -68,7 +68,7 @@ export default class Bonus extends Component {
         );
         break;
       case 4:
-        this.bonusImage = new Component(
+        this.bonusImage = new ComponentBase(
           "div",
           {
             // can move through bombs
@@ -83,7 +83,7 @@ export default class Bonus extends Component {
         );
         break;
       case 5:
-        this.bonusImage = new Component(
+        this.bonusImage = new ComponentBase(
           "div",
           {
             class: "bonus-item",

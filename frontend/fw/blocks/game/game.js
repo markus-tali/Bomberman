@@ -1,4 +1,4 @@
-import Component from "../component.js";
+import ComponentBase from "../component.js";
 import Map from "./map.js";
 import { CurrentPlayer, Player, PlayerMovePool } from "./player.js";
 import TabBomb from "./bomb.js";
@@ -10,7 +10,7 @@ const positions = [
   { top: -64, left: 32 },
 ];
 
-export default class Game extends Component {
+export default class Game extends ComponentBase {
   constructor(props, ws, username, readyPlayers) {
     super("section", props);
     this.username = username;
@@ -18,7 +18,7 @@ export default class Game extends Component {
     this.stop = false;
     this.size = 19;
     this.atlas = this.ws.sendMessage({ type: "map" });
-    this.livesContainer = new Component("div", {
+    this.livesContainer = new ComponentBase("div", {
       id: "lives-container",
       style: "position:absolute;",
     });
@@ -128,7 +128,7 @@ export default class Game extends Component {
     this.map.tabBomb = this.tabBomb;
     this.map.addElement(this.tabBomb);
     this.addElement(this.map);
-    this.update();
+    this.updateContent();
   }
 
   updatePlayers(message) {
@@ -144,9 +144,9 @@ export default class Game extends Component {
   }
 
   initLives() {
-    const livesList = new Component("ul", { id: "lives-list" });
+    const livesList = new ComponentBase("ul", { id: "lives-list" });
     this.readyPlayers.forEach((player, index) => {
-      const playerLife = new Component(
+      const playerLife = new ComponentBase(
         "li",
         {
           className: player.props.id,
@@ -162,7 +162,7 @@ export default class Game extends Component {
     });
     this.livesContainer.addElement(livesList);
     this.addElement(this.livesContainer);
-    this.update();
+    this.updateContent();
   }
 
   updateLives() {
@@ -201,7 +201,7 @@ export default class Game extends Component {
     });
 
     if (changesMade) {
-      this.livesContainer.update();
+      this.livesContainer.updateContent();
     }
   }
   gameLoop(timestamp) {
