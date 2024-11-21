@@ -282,7 +282,7 @@ class Blast extends ComponentBase {
           if (bottom.props.class === "shadow")
             map.children[blockBorder.indexY + 1].children[blockBorder.indexX] =
               map.path;
-          map.update();
+          map.updateContent();
         }
         if (blockBorder.type === "covered") {
           const bonus =
@@ -294,7 +294,7 @@ class Blast extends ComponentBase {
               break;
             }
           }
-          map.update();
+          map.updateContent();
         }
       });
     });
