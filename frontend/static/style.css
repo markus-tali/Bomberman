@@ -46,7 +46,7 @@ body {
   overflow: hidden;
   width: 100vw;  
   height: 100vh;
-  background-image: url('../../frontend/fw/blocks/game/media/grass1.png');
+  background-image: url('../../frontend/js/blocks/game/media/grass1.png');
   background-position: center bottom;
   background-color: #83c2e4;
   background-repeat: repeat-x;

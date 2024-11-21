@@ -54,7 +54,7 @@ export class Player extends ComponentBase {
     this.username = username;
     this.posX = props.style.left;
     this.posY = props.style.top;
-    this.sprite = `url(./fw/blocks/game/media/player${props.index + 1}.png)`;
+    this.sprite = `url(./js/blocks/game/media/player${props.index + 1}.png)`;
     this.props.style = `background-image: ${
       this.sprite
     }; background-position: -${0}px -${0}px;`;

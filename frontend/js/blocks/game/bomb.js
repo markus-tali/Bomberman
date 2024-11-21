@@ -5,7 +5,7 @@ import TabSprite from "./sprite.js";
 
 const keys = ["top", "left", "in", "right", "bottom"];
 const flameSprite = new TabSprite(
-  "./fw/blocks/game/media/blast-32x32.png",
+  "./js/blocks/game/media/blast-32x32.png",
   32,
   128,
   288
@@ -61,7 +61,7 @@ export default class TabBomb extends ComponentBase {
   constructor(parent, currentPlayer) {
     super("div", { id: "TabBomb" }, []);
     this.tabSpriteBomb = new TabSprite(
-      "./fw/blocks/game/media/bomb-32x32.png",
+      "./js/blocks/game/media/bomb-32x32.png",
       32,
       160,
       96

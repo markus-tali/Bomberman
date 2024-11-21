@@ -23,7 +23,7 @@ export default class Map extends ComponentBase {
     super("div", { class: "map-container", id: "map" });
     this.atlas = atlas;
     this.tileSize = 32;
-    this.tileSetImage = "url(./fw/blocks/game/media/world1-32x32.png)";
+    this.tileSetImage = "url(./js/blocks/game/media/world1-32x32.png)";
     this.bonusMap = [];
     this.initMap();
     return this;

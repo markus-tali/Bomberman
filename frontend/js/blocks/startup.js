@@ -1,26 +1,23 @@
-import Component from "./component.js";
+import ComponentBase from "./component.js";
 import Form from "./form.js";
 import Input from "./input.js";
 import { getFormValues } from "../runner/engine.js";
 
-export default class BootMenu extends Component {
+export default class BootMenu extends ComponentBase {
   constructor() {
     super("div", { className: "bootMenu" });
   }
-  // test
-  // hello
+
   async initialize(resolve, reject) {
     const maxCharacters = 10;
-    const title = new Component("h1", { id: "title" }, [
-      "Welcome to the Jungle!",
-    ]);
-    const errorMessage = new Component("p", {
+    const title = new ComponentBase("h1", { id: "title" }, ["Bomberman"]);
+    const errorMessage = new ComponentBase("p", {
       id: "error-msg",
       style: "color: red",
     });
-    const text = `Choose your username`;
-    const queryText = new Component("p", {}, [text]);
-    const message = new Component("span", {}, [
+    const text = `How do you want to be called?`;
+    const queryText = new ComponentBase("p", {}, [text]);
+    const message = new ComponentBase("span", {}, [
       `(max.${maxCharacters} characters)`,
     ]);
     const username = new Input({
@@ -53,15 +50,10 @@ export default class BootMenu extends Component {
         else {
           const errorText = await res.text();
           errorMessage.children = [errorText];
-          errorMessage.update();
+          errorMessage.updateContent();
         }
       });
     });
-    const container = new Component("div", { className: "boot-menu-container" });
-    container.addElement(bootForm);
-    
-    const grass1 = new Component("div", { className: "grass" });
-    this.addElement(grass1)
 
     this.addElement(bootForm);
     this.render();

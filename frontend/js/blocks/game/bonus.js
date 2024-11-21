@@ -9,7 +9,7 @@ export default class Bonus extends ComponentBase {
       style: `background-color: #2f8136; width: ${tileSize}px; height: ${tileSize}px; display: flex; justify-content: center; align-items: center;`,
     });
 
-    this.image = `url(./fw/blocks/game/media/items.png)`;
+    this.image = `url(./js/blocks/game/media/items.png)`;
     this.atlas = atlas;
     this.tileSize = tileSize;
     this.tileSetImage = tileSetImage;
