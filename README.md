@@ -10,9 +10,17 @@ Welcome to our **Bomberman DOM**, a thrilling multiplayer game where strategy, s
 
 `go run .`
 
-3.Open index.html in a **live server environment**.
+3.In new terminal navigate to frontend directory
 
-4.Enter your nickname and start playing!
+4.Install node modules:
+
+`npm install`
+
+5.Run dev server:
+
+`npm run dev`
+
+6.Go to link shown in terminal (usually: `localhost:5173`), enter your nickname and start playing!
 
 ## Core GamePlay
 
